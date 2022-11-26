@@ -3,7 +3,7 @@ package com.emidev.traktiary;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class APIClient {
+public class TraktAPIClient {
     private static final String BASE_URL = "https://api.trakt.tv/";
     private static Retrofit retrofit = null;
 

@@ -1,10 +1,8 @@
 
-package com.emidev.traktiary.model;
+package com.emidev.traktiary.model.Trakt;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import kotlin.Suppress;
 
 @SuppressWarnings("unused")
 public class Show {

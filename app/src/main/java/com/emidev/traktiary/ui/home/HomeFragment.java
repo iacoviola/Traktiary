@@ -11,11 +11,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.emidev.traktiary.APIClient;
-import com.emidev.traktiary.APIInterface;
+import com.emidev.traktiary.TraktAPIClient;
+import com.emidev.traktiary.TraktAPIInterface;
 import com.emidev.traktiary.adapter.ShowAdapter;
 import com.emidev.traktiary.databinding.FragmentHomeBinding;
-import com.emidev.traktiary.model.Trending;
+import com.emidev.traktiary.model.Trakt.Trending;
 
 import java.util.List;
 
@@ -30,9 +30,9 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
         //retrofit request
-        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
+        TraktAPIInterface traktApiInterface = TraktAPIClient.getClient().create(TraktAPIInterface.class);
 
-        Call<List<Trending>> trendingShows = apiInterface.getTrendingShows();
+        Call<List<Trending>> trendingShows = traktApiInterface.getTrendingShows();
 
         trendingShows.enqueue(new retrofit2.Callback<List<Trending>>() {
             @Override
@@ -40,8 +40,8 @@ public class HomeFragment extends Fragment {
                 if(response.isSuccessful()) {
                     List<Trending> shows = response.body();
 
-                    ShowAdapter showAdapter = new ShowAdapter(requireActivity(), shows);
-                    RecyclerView.LayoutManager layoutManager = new GridLayoutManager(requireActivity(), 3);
+                    ShowAdapter showAdapter = new ShowAdapter(requireParentFragment(), shows);
+                    RecyclerView.LayoutManager layoutManager = new GridLayoutManager(requireActivity(), 2);
                     binding.showRecyclerView.setLayoutManager(layoutManager);
                     binding.showRecyclerView.setAdapter(showAdapter);
                 } else {
