@@ -1,7 +1,5 @@
 package com.emidev.traktiary.adapter;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,6 +67,7 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ShowViewHolder
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .into(holder.showImageView);
                 } else {
+                    Log.d("TMDB", "onResponse: " + response.message());
                 }
 
 
@@ -81,6 +80,7 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ShowViewHolder
         });
 
         holder.titleTextView.setText(show.getShow().getTitle());
+        holder.watchersTextView.setText(String.valueOf(show.getWatchers()));
     }
 
     @Override
@@ -95,11 +95,13 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ShowViewHolder
     public static class ShowViewHolder extends RecyclerView.ViewHolder {
         private final ImageView showImageView;
         private final TextView titleTextView;
+        private final TextView watchersTextView;
 
         public ShowViewHolder(@NonNull View itemView) {
             super(itemView);
             showImageView = itemView.findViewById(R.id.show_poster_image_view);
             titleTextView = itemView.findViewById(R.id.show_title_text_view);
+            watchersTextView = itemView.findViewById(R.id.show_watchers_text_view);
         }
     }
 }

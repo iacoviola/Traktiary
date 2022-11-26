@@ -1,6 +1,8 @@
 package com.emidev.traktiary;
 
 import android.os.Bundle;
+import android.view.Surface;
+import android.view.SurfaceControl;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -8,6 +10,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import com.emidev.traktiary.databinding.ActivityMainBinding;
+import com.google.android.material.color.DynamicColors;
+import com.google.android.material.elevation.SurfaceColors;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class MainActivity extends AppCompatActivity {
@@ -18,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //DynamicColors.applyToActivityIfAvailable(this);
+        DynamicColors.applyToActivityIfAvailable(this);
+
+        getWindow().setNavigationBarColor(SurfaceColors.SURFACE_2.getColor(this));
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
