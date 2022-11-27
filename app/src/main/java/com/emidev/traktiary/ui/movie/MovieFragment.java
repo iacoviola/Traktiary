@@ -1,4 +1,4 @@
-package com.emidev.traktiary.ui.dashboard;
+package com.emidev.traktiary.ui.movie;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,20 +12,20 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.emidev.traktiary.databinding.FragmentDashboardBinding;
 
-public class DashboardFragment extends Fragment {
+public class MovieFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        MovieViewModel movieViewModel =
+                new ViewModelProvider(this).get(MovieViewModel.class);
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        movieViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

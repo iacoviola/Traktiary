@@ -18,6 +18,8 @@ public class ShowCollectionAdapter extends FragmentStateAdapter {
                 return new TrendingFragment();
             case 1:
                 return new PopularFragment();
+            case 2:
+                return new WatchedFragment();
             default:
                 throw new IllegalArgumentException("Invalid position");
         }
@@ -25,6 +27,6 @@ public class ShowCollectionAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 3;
     }
 }

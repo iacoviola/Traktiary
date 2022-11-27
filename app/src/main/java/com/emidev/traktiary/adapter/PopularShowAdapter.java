@@ -16,7 +16,7 @@ import com.emidev.traktiary.R;
 import com.emidev.traktiary.TMDBAPIClient;
 import com.emidev.traktiary.TMDBAPIInterface;
 import com.emidev.traktiary.model.TMDB.TMDBShow;
-import com.emidev.traktiary.model.Trakt.Trending.Show;
+import com.emidev.traktiary.model.Trakt.Shows.Show;
 
 import java.util.List;
 
@@ -86,6 +86,12 @@ public class PopularShowAdapter extends RecyclerView.Adapter<PopularShowAdapter.
         // this method is used for showing number
         // of card items in recycler view.
         return showList.size();
+    }
+
+    public void clear() {
+        showList.clear();
+        notifyItemRangeRemoved(0, showList.size());
+
     }
 
     // View holder class for initializing of
