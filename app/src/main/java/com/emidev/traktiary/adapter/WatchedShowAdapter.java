@@ -17,6 +17,7 @@ import com.emidev.traktiary.TMDBAPIClient;
 import com.emidev.traktiary.TMDBAPIInterface;
 import com.emidev.traktiary.model.TMDB.TMDBShow;
 import com.emidev.traktiary.model.Trakt.Trending.Trending;
+import com.emidev.traktiary.model.Trakt.Watched.Watched;
 
 import java.util.List;
 
@@ -24,29 +25,29 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TrendingShowAdapter extends RecyclerView.Adapter<TrendingShowAdapter.ShowViewHolder> {
+public class WatchedShowAdapter extends RecyclerView.Adapter<WatchedShowAdapter.ShowViewHolder> {
 
     private final Fragment fragment;
-    private final List<Trending> showList;
+    private final List<Watched> showList;
 
     // Constructor
-    public TrendingShowAdapter(Fragment fragment, List<Trending> showList) {
+    public WatchedShowAdapter(Fragment fragment, List<Watched> showList) {
         this.fragment = fragment;
         this.showList = showList;
     }
 
     @NonNull
     @Override
-    public TrendingShowAdapter.ShowViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public WatchedShowAdapter.ShowViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // to inflate the layout for each item of recycler view.
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_show, parent, false);
         return new ShowViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TrendingShowAdapter.ShowViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull WatchedShowAdapter.ShowViewHolder holder, int position) {
 
-        Trending show = showList.get(holder.getAdapterPosition());
+        Watched show = showList.get(holder.getAdapterPosition());
 
         TMDBAPIInterface tmdbApiInterface = TMDBAPIClient.getClient().create(TMDBAPIInterface.class);
 
@@ -80,7 +81,8 @@ public class TrendingShowAdapter extends RecyclerView.Adapter<TrendingShowAdapte
         });
 
         holder.titleTextView.setText(show.getShow().getTitle());
-        holder.watchersTextView.setText(String.valueOf(show.getWatchers()));
+        holder.watchersTextView.setTextSize(13);
+        holder.watchersTextView.setText(String.valueOf(show.getWatcher_count()));
     }
 
     @Override

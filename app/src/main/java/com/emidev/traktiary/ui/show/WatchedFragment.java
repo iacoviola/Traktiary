@@ -15,8 +15,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.emidev.traktiary.R;
 import com.emidev.traktiary.TraktAPIClient;
 import com.emidev.traktiary.TraktAPIInterface;
-import com.emidev.traktiary.adapter.PopularShowAdapter;
-import com.emidev.traktiary.model.Trakt.Shows.Show;
+import com.emidev.traktiary.adapter.TrendingShowAdapter;
+import com.emidev.traktiary.adapter.WatchedShowAdapter;
+import com.emidev.traktiary.model.Trakt.Trending.Trending;
+import com.emidev.traktiary.model.Trakt.Watched.Watched;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +28,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 @SuppressWarnings("Convert2Lambda")
-public class PopularFragment extends Fragment {
+public class WatchedFragment extends Fragment {
 
     private Integer page = 1;
-    private final List<Show> showsList = new ArrayList<>();
+    private final List<Watched> showsList = new ArrayList<>();
     private TraktAPIInterface traktApiInterface;
     private RecyclerView showRecyclerView;
-    private PopularShowAdapter popularShowAdapter;
+    private WatchedShowAdapter trendingShowAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,11 +51,11 @@ public class PopularFragment extends Fragment {
 
         SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
         showRecyclerView = view.findViewById(R.id.show_recycler_view);
-        popularShowAdapter = new PopularShowAdapter(requireParentFragment(), showsList);
+        trendingShowAdapter = new WatchedShowAdapter(requireParentFragment(), showsList);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(requireActivity(), 2);
 
         showRecyclerView.setLayoutManager(layoutManager);
-        showRecyclerView.setAdapter(popularShowAdapter);
+        showRecyclerView.setAdapter(trendingShowAdapter);
 
         request();
 
@@ -73,8 +75,8 @@ public class PopularFragment extends Fragment {
             @Override
             public void onRefresh() {
                 page = 1;
-                popularShowAdapter.clear();
-                showRecyclerView.setAdapter(popularShowAdapter);
+                trendingShowAdapter.clear();
+                showRecyclerView.setAdapter(trendingShowAdapter);
                 request();
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -84,17 +86,17 @@ public class PopularFragment extends Fragment {
 
     public void request() {
 
-        Call<List<Show>> trendingShows = traktApiInterface.getPopularShows(page);
+        Call<List<Watched>> trendingShows = traktApiInterface.getWatchedShows(page);
 
-        trendingShows.enqueue(new Callback<List<Show>>() {
+        trendingShows.enqueue(new Callback<List<Watched>>() {
             @Override
-            public void onResponse(@NonNull Call<List<Show>> call, @NonNull Response<List<Show>> response) {
+            public void onResponse(@NonNull Call<List<Watched>> call, @NonNull Response<List<Watched>> response) {
                 if(response.isSuccessful()) {
-                    List<Show> shows = response.body();
+                    List<Watched> shows = response.body();
                     if(shows != null) {
-                        int previousSize = popularShowAdapter.getItemCount();
+                        int previousSize = trendingShowAdapter.getItemCount();
                         showsList.addAll(shows);
-                        popularShowAdapter.notifyItemRangeInserted(previousSize, shows.size());
+                        trendingShowAdapter.notifyItemRangeInserted(previousSize, shows.size());
                     }
                 } else {
                     Log.d("HomeFragment", "onResponse: " + response.errorBody());
@@ -102,7 +104,7 @@ public class PopularFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call<List<Show>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<List<Watched>> call, @NonNull Throwable t) {
                 call.cancel();
             }
         });

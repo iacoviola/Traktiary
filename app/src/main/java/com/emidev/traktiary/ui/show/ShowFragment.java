@@ -40,6 +40,9 @@ public class ShowFragment extends Fragment {
                 case 1:
                     tab.setText("Popular");
                     break;
+                case 2:
+                    tab.setText("Most Watched");
+                    break;
             }
         }).attach();
     }
