@@ -25,10 +25,15 @@ import retrofit2.Response;
 
 public class TrendingFragment extends Fragment {
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         //inflate
-        View view = inflater.inflate(R.layout.fragment_trending, container, false);
+        return inflater.inflate(R.layout.fragment_trending, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         //retrofit request
         TraktAPIInterface traktApiInterface = TraktAPIClient.getClient().create(TraktAPIInterface.class);
@@ -56,8 +61,6 @@ public class TrendingFragment extends Fragment {
                 call.cancel();
             }
         });
-
-        return view;
     }
 
     @Override

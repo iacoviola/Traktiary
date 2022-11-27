@@ -18,9 +18,9 @@ public class ShowCollectionAdapter extends FragmentStateAdapter {
                 return new TrendingFragment();
             case 1:
                 return new PopularFragment();
+            default:
+                throw new IllegalArgumentException("Invalid position");
         }
-
-        return null;
     }
 
     @Override

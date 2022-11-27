@@ -15,7 +15,6 @@ import com.emidev.traktiary.R;
 import com.emidev.traktiary.TraktAPIClient;
 import com.emidev.traktiary.TraktAPIInterface;
 import com.emidev.traktiary.adapter.PopularShowAdapter;
-import com.emidev.traktiary.adapter.TrendingShowAdapter;
 import com.emidev.traktiary.model.Trakt.Trending.Show;
 
 import java.util.List;
@@ -26,10 +25,15 @@ import retrofit2.Response;
 
 public class PopularFragment extends Fragment {
 
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         //inflate
-        View view = inflater.inflate(R.layout.fragment_popular, container, false);
+        return inflater.inflate(R.layout.fragment_popular, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         //retrofit request
         TraktAPIInterface traktApiInterface = TraktAPIClient.getClient().create(TraktAPIInterface.class);
@@ -57,8 +61,6 @@ public class PopularFragment extends Fragment {
                 call.cancel();
             }
         });
-
-        return view;
     }
 
     @Override

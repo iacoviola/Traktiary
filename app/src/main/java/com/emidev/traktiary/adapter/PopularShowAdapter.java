@@ -17,7 +17,6 @@ import com.emidev.traktiary.TMDBAPIClient;
 import com.emidev.traktiary.TMDBAPIInterface;
 import com.emidev.traktiary.model.TMDB.TMDBShow;
 import com.emidev.traktiary.model.Trakt.Trending.Show;
-import com.emidev.traktiary.model.Trakt.Trending.Trending;
 
 import java.util.List;
 
@@ -57,15 +56,19 @@ public class PopularShowAdapter extends RecyclerView.Adapter<PopularShowAdapter.
                 if(response.isSuccessful()) {
                     TMDBShow TMDBshow = response.body();
 
-                    Glide.with(fragment)
-                            .load("https://image.tmdb.org/t/p/w500" + TMDBshow.getPosterPath())
-                            .placeholder(R.drawable.ic_launcher_foreground)
-                            .into(holder.showImageView);
+                    if (TMDBshow != null) {
+                        Glide.with(fragment)
+                                .load("https://image.tmdb.org/t/p/w500" + TMDBshow.getPosterPath())
+                                .placeholder(R.drawable.ic_baseline_movie_24)
+                                .into(holder.showImageView);
+                    } else {
+                        Glide.with(fragment)
+                                .load(R.drawable.ic_baseline_movie_24)
+                                .into(holder.showImageView);
+                    }
                 } else {
                     Log.d("TMDB", "onResponse: " + response.message());
                 }
-
-
             }
 
             @Override

@@ -56,10 +56,16 @@ public class TrendingShowAdapter extends RecyclerView.Adapter<TrendingShowAdapte
                 if(response.isSuccessful()) {
                     TMDBShow TMDBshow = response.body();
 
-                    Glide.with(fragment)
-                            .load("https://image.tmdb.org/t/p/w500" + TMDBshow.getPosterPath())
-                            .placeholder(R.drawable.ic_launcher_foreground)
-                            .into(holder.showImageView);
+                    if (TMDBshow != null) {
+                        Glide.with(fragment)
+                                .load("https://image.tmdb.org/t/p/w500" + TMDBshow.getPosterPath())
+                                .placeholder(R.drawable.ic_baseline_movie_24)
+                                .into(holder.showImageView);
+                    } else {
+                        Glide.with(fragment)
+                                .load(R.drawable.ic_baseline_movie_24)
+                                .into(holder.showImageView);
+                    }
                 } else {
                     Log.d("TMDB", "onResponse: " + response.message());
                 }
