@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/main_item"
+        android:title="Manu">
+        <menu>
+            <item
+                android:id="@+id/inbox_item"
+                android:title="Manu"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/outbox_item"
+                android:title="man"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/favourites_item"
+                android:title="mans"
+                android:checkable="true"/>
+        </menu>
+    </item>
+</menu>

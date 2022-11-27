@@ -4,7 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.show.TrendingFragment">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/show_recycler_view"
+        android:text="Popular"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"/> -->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/show_recycler_view"
@@ -13,5 +29,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+        <!-- android:layout_marginTop="90dp" -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

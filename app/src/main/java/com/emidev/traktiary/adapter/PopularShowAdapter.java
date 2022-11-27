@@ -8,63 +8,58 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.emidev.traktiary.R;
 import com.emidev.traktiary.TMDBAPIClient;
 import com.emidev.traktiary.TMDBAPIInterface;
 import com.emidev.traktiary.model.TMDB.TMDBShow;
-import com.emidev.traktiary.model.Trakt.Trending;
+import com.emidev.traktiary.model.Trakt.Trending.Show;
+import com.emidev.traktiary.model.Trakt.Trending.Trending;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ShowViewHolder> {
+public class PopularShowAdapter extends RecyclerView.Adapter<PopularShowAdapter.ShowViewHolder> {
 
     private final Fragment fragment;
-    private final List<Trending> showList;
+    private final List<Show> showList;
 
     // Constructor
-    public ShowAdapter(Fragment fragment, List<Trending> showList) {
+    public PopularShowAdapter(Fragment fragment, List<Show> showList) {
         this.fragment = fragment;
         this.showList = showList;
     }
 
     @NonNull
     @Override
-    public ShowAdapter.ShowViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PopularShowAdapter.ShowViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // to inflate the layout for each item of recycler view.
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_show, parent, false);
         return new ShowViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ShowAdapter.ShowViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PopularShowAdapter.ShowViewHolder holder, int position) {
 
-        Trending show = showList.get(holder.getAdapterPosition());
+        Show show = showList.get(holder.getAdapterPosition());
 
         TMDBAPIInterface tmdbApiInterface = TMDBAPIClient.getClient().create(TMDBAPIInterface.class);
 
-        tmdbApiInterface.getTMDBShow(show.getShow().getIds().getTmdb()).enqueue(new retrofit2.Callback<TMDBShow>() {
+        tmdbApiInterface.getTMDBShow(show.getIds().getTmdb()).enqueue(new Callback<TMDBShow>() {
             @Override
-            public void onResponse(@NonNull Call<TMDBShow> call, @NonNull retrofit2.Response<TMDBShow> response) {
+            public void onResponse(@NonNull Call<TMDBShow> call, @NonNull Response<TMDBShow> response) {
                 if(response.isSuccessful()) {
                     TMDBShow TMDBshow = response.body();
 
                     Glide.with(fragment)
                             .load("https://image.tmdb.org/t/p/w500" + TMDBshow.getPosterPath())
                             .placeholder(R.drawable.ic_launcher_foreground)
-                            .dontAnimate()
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .into(holder.showImageView);
                 } else {
                     Log.d("TMDB", "onResponse: " + response.message());
@@ -79,8 +74,8 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ShowViewHolder
             }
         });
 
-        holder.titleTextView.setText(show.getShow().getTitle());
-        holder.watchersTextView.setText(String.valueOf(show.getWatchers()));
+        holder.titleTextView.setText(show.getTitle());
+        holder.watchersTextView.setVisibility(View.GONE);
     }
 
     @Override

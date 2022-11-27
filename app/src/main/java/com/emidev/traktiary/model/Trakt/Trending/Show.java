@@ -1,5 +1,5 @@
 
-package com.emidev.traktiary.model.Trakt;
+package com.emidev.traktiary.model.Trakt.Trending;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

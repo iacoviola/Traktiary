@@ -1,4 +1,4 @@
-package com.emidev.traktiary.ui.home;
+package com.emidev.traktiary.ui.show;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

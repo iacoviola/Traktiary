@@ -1,6 +1,7 @@
 package com.emidev.traktiary;
 
-import com.emidev.traktiary.model.Trakt.Trending;
+import com.emidev.traktiary.model.Trakt.Trending.Show;
+import com.emidev.traktiary.model.Trakt.Trending.Trending;
 
 import java.util.List;
 
@@ -15,4 +16,10 @@ public interface TraktAPIInterface {
             "trakt-api-key: " + BuildConfig.TRAKT_API_KEY})
     @GET("shows/trending")
     Call<List<Trending>> getTrendingShows();
+
+    @Headers({"Content-Type: application/json",
+            "trakt-api-version: 2",
+            "trakt-api-key: " + BuildConfig.TRAKT_API_KEY})
+    @GET("shows/popular")
+    Call<List<Show>> getPopularShows();
 }
