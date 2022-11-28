@@ -1,6 +1,9 @@
 package com.emidev.traktiary;
 
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_dashboard, R.id.navigation_show, R.id.navigation_notifications)
+                R.id.navigation_movie, R.id.navigation_show, R.id.navigation_notifications)
                 .setOpenableLayout(drawer)
                 .build();
 
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
     }
 
 }

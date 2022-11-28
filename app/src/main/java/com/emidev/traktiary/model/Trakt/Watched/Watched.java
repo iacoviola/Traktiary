@@ -20,7 +20,7 @@ public class Watched {
     @SerializedName("collector_count")
     @Expose
     private Integer collector_count;
-    @SerializedName("show")
+    @SerializedName(value = "show", alternate = "movie")
     @Expose
     private Show show;
 

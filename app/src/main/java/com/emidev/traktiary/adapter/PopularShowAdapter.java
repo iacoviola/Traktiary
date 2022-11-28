@@ -28,11 +28,13 @@ public class PopularShowAdapter extends RecyclerView.Adapter<PopularShowAdapter.
 
     private final Fragment fragment;
     private final List<Show> showList;
+    private final boolean isMovie;
 
     // Constructor
-    public PopularShowAdapter(Fragment fragment, List<Show> showList) {
+    public PopularShowAdapter(Fragment fragment, List<Show> showList, boolean isMovie) {
         this.fragment = fragment;
         this.showList = showList;
+        this.isMovie = isMovie;
     }
 
     @NonNull
@@ -50,7 +52,15 @@ public class PopularShowAdapter extends RecyclerView.Adapter<PopularShowAdapter.
 
         TMDBAPIInterface tmdbApiInterface = TMDBAPIClient.getClient().create(TMDBAPIInterface.class);
 
-        tmdbApiInterface.getTMDBShow(show.getIds().getTmdb()).enqueue(new Callback<TMDBShow>() {
+        Call<TMDBShow> call;
+
+        if(isMovie) {
+            call = tmdbApiInterface.getTMDBMovie(show.getIds().getTmdb());
+        } else {
+            call = tmdbApiInterface.getTMDBShow(show.getIds().getTmdb());
+        }
+
+        call.enqueue(new Callback<TMDBShow>() {
             @Override
             public void onResponse(@NonNull Call<TMDBShow> call, @NonNull Response<TMDBShow> response) {
                 if(response.isSuccessful()) {

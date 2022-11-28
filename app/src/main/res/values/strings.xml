@@ -5,6 +5,7 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="title_show">Shows</string>
+    <string name="title_movie">Movies</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="poster_of_the_show">Poster of the show</string>

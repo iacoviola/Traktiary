@@ -11,7 +11,7 @@ public class Trending {
     @SerializedName("watchers")
     @Expose
     private Integer watchers;
-    @SerializedName("show")
+    @SerializedName(value = "show", alternate = "movie")
     @Expose
     private Show show;
 

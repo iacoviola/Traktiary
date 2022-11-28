@@ -12,4 +12,8 @@ public interface TMDBAPIInterface {
     @Headers({"Content-Type: application/json"})
     @GET("tv/{id}?api_key=" + BuildConfig.TMDB_API_KEY)
     Call<TMDBShow> getTMDBShow(@Path("id") int id);
+
+    @Headers({"Content-Type: application/json"})
+    @GET("movie/{id}?api_key=" + BuildConfig.TMDB_API_KEY)
+    Call<TMDBShow> getTMDBMovie(@Path("id") int id);
 }

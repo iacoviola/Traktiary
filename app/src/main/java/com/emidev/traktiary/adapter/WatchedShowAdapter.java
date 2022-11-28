@@ -29,11 +29,13 @@ public class WatchedShowAdapter extends RecyclerView.Adapter<WatchedShowAdapter.
 
     private final Fragment fragment;
     private final List<Watched> showList;
+    private final boolean isMovie;
 
     // Constructor
-    public WatchedShowAdapter(Fragment fragment, List<Watched> showList) {
+    public WatchedShowAdapter(Fragment fragment, List<Watched> showList, boolean isMovie) {
         this.fragment = fragment;
         this.showList = showList;
+        this.isMovie = isMovie;
     }
 
     @NonNull
@@ -51,7 +53,15 @@ public class WatchedShowAdapter extends RecyclerView.Adapter<WatchedShowAdapter.
 
         TMDBAPIInterface tmdbApiInterface = TMDBAPIClient.getClient().create(TMDBAPIInterface.class);
 
-        tmdbApiInterface.getTMDBShow(show.getShow().getIds().getTmdb()).enqueue(new Callback<TMDBShow>() {
+        Call<TMDBShow> call;
+
+        if(isMovie) {
+            call = tmdbApiInterface.getTMDBMovie(show.getShow().getIds().getTmdb());
+        } else {
+            call = tmdbApiInterface.getTMDBShow(show.getShow().getIds().getTmdb());
+        }
+
+        call.enqueue(new Callback<TMDBShow>() {
             @Override
             public void onResponse(@NonNull Call<TMDBShow> call, @NonNull Response<TMDBShow> response) {
                 if(response.isSuccessful()) {

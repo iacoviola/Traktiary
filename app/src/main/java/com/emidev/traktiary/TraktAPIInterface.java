@@ -22,12 +22,30 @@ public interface TraktAPIInterface {
     @Headers({"Content-Type: application/json",
             "trakt-api-version: 2",
             "trakt-api-key: " + BuildConfig.TRAKT_API_KEY})
+    @GET("movies/trending")
+    Call<List<Trending>> getTrendingMovies(@Query("page") Integer page);
+
+    @Headers({"Content-Type: application/json",
+            "trakt-api-version: 2",
+            "trakt-api-key: " + BuildConfig.TRAKT_API_KEY})
     @GET("shows/popular")
     Call<List<Show>> getPopularShows(@Query("page") Integer page);
 
     @Headers({"Content-Type: application/json",
             "trakt-api-version: 2",
             "trakt-api-key: " + BuildConfig.TRAKT_API_KEY})
+    @GET("movies/popular")
+    Call<List<Show>> getPopularMovies(@Query("page") Integer page);
+
+    @Headers({"Content-Type: application/json",
+            "trakt-api-version: 2",
+            "trakt-api-key: " + BuildConfig.TRAKT_API_KEY})
     @GET("shows/watched")
     Call<List<Watched>> getWatchedShows(@Query("page") Integer page);
+
+    @Headers({"Content-Type: application/json",
+            "trakt-api-version: 2",
+            "trakt-api-key: " + BuildConfig.TRAKT_API_KEY})
+    @GET("movies/watched")
+    Call<List<Watched>> getWatchedMovies(@Query("page") Integer page);
 }

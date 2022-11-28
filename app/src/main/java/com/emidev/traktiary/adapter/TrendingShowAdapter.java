@@ -16,6 +16,7 @@ import com.emidev.traktiary.R;
 import com.emidev.traktiary.TMDBAPIClient;
 import com.emidev.traktiary.TMDBAPIInterface;
 import com.emidev.traktiary.model.TMDB.TMDBShow;
+import com.emidev.traktiary.model.Trakt.Shows.Show;
 import com.emidev.traktiary.model.Trakt.Trending.Trending;
 
 import java.util.List;
@@ -28,11 +29,13 @@ public class TrendingShowAdapter extends RecyclerView.Adapter<TrendingShowAdapte
 
     private final Fragment fragment;
     private final List<Trending> showList;
+    private final boolean isMovie;
 
     // Constructor
-    public TrendingShowAdapter(Fragment fragment, List<Trending> showList) {
+    public TrendingShowAdapter(Fragment fragment, List<Trending> showList, boolean isMovie) {
         this.fragment = fragment;
         this.showList = showList;
+        this.isMovie = isMovie;
     }
 
     @NonNull
@@ -50,7 +53,15 @@ public class TrendingShowAdapter extends RecyclerView.Adapter<TrendingShowAdapte
 
         TMDBAPIInterface tmdbApiInterface = TMDBAPIClient.getClient().create(TMDBAPIInterface.class);
 
-        tmdbApiInterface.getTMDBShow(show.getShow().getIds().getTmdb()).enqueue(new Callback<TMDBShow>() {
+        Call<TMDBShow> call;
+
+        if(isMovie) {
+            call = tmdbApiInterface.getTMDBMovie(show.getShow().getIds().getTmdb());
+        } else {
+            call = tmdbApiInterface.getTMDBShow(show.getShow().getIds().getTmdb());
+        }
+
+        call.enqueue(new Callback<TMDBShow>() {
             @Override
             public void onResponse(@NonNull Call<TMDBShow> call, @NonNull Response<TMDBShow> response) {
                 if(response.isSuccessful()) {
