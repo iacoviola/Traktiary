@@ -48,4 +48,10 @@ public interface TraktAPIInterface {
             "trakt-api-key: " + BuildConfig.TRAKT_API_KEY})
     @GET("movies/watched")
     Call<List<Watched>> getWatchedMovies(@Query("page") Integer page);
+
+    @Headers({"Content-Type: application/json",
+            "trakt-api-version: 2",
+            "trakt-api-key: " + BuildConfig.TRAKT_API_KEY})
+    @GET("/search/movie,show,person")
+    Call<List<Show>> getSearchResults(@Query("query") String query, @Query("page") Integer page);
 }

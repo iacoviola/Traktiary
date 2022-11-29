@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <!-- <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,9 +33,10 @@
                 android:minHeight="?attr/actionBarSize"
                 app:titleCentered="true"
                 android:fitsSystemWindows="true"
-                android:backgroundTint="?android:statusBarColor"/>
+                android:backgroundTint="?android:statusBarColor"
+                app:menu="@menu/toolbar_menu"/>
 
-        </com.google.android.material.appbar.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout> -->
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment_activity_main"
@@ -46,7 +47,7 @@
             app:layout_constraintBottom_toTopOf="@+id/nav_view"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+            app:layout_constraintTop_toTopOf="parent"
             app:navGraph="@navigation/mobile_navigation" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
